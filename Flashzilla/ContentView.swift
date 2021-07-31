@@ -59,66 +59,65 @@ struct ContentView: View {
             .foregroundColor(.black)
             .clipShape(Capsule())
         }
+      } //: VStack
+      
+      VStack {
+        HStack {
+          Spacer()
+          
+          Button(action: {
+            self.showingEditScreen = true
+          }) {
+            Image(systemName: "plus.circle")
+              .padding()
+              .background(Color.black.opacity(0.7))
+              .clipShape(Circle())
+          }
+        }
         
+        Spacer()
+      }
+      .foregroundColor(.white)
+      .font(.largeTitle)
+      .padding()
+      
+      if differentiateWithoutColor || accessibilityEnabled {
         VStack {
+          Spacer()
+          
           HStack {
-            Spacer()
-            
             Button(action: {
-              self.showingEditScreen = true
+              withAnimation {
+                self.removeCard(at: self.cards.count - 1)
+              }
             }) {
-              Image(systemName: "plus.circle")
+              Image(systemName: "xmark.circle")
                 .padding()
                 .background(Color.black.opacity(0.7))
                 .clipShape(Circle())
             }
-          }
-          
-          Spacer()
-        }
-        .foregroundColor(.white)
-        .font(.largeTitle)
-        .padding()
-        
-        if differentiateWithoutColor || accessibilityEnabled {
-          VStack {
+            .accessibility(label: Text("Wrong"))
+            .accessibility(hint: Text("Mark your answer as being incorrect."))
             Spacer()
             
-            HStack {
-              Button(action: {
-                withAnimation {
-                  self.removeCard(at: self.cards.count - 1)
-                }
-              }) {
-                Image(systemName: "xmark.circle")
-                  .padding()
-                  .background(Color.black.opacity(0.7))
-                  .clipShape(Circle())
+            Button(action: {
+              withAnimation {
+                self.removeCard(at: self.cards.count - 1)
               }
-              .accessibility(label: Text("Wrong"))
-              .accessibility(hint: Text("Mark your answer as being incorrect."))
-              Spacer()
-              
-              Button(action: {
-                withAnimation {
-                  self.removeCard(at: self.cards.count - 1)
-                }
-              }) {
-                Image(systemName: "checkmark.circle")
-                  .padding()
-                  .background(Color.black.opacity(0.7))
-                  .clipShape(Circle())
-              }
-              .accessibility(label: Text("Correct"))
-              .accessibility(hint: Text("Mark your answer as being correct."))
+            }) {
+              Image(systemName: "checkmark.circle")
+                .padding()
+                .background(Color.black.opacity(0.7))
+                .clipShape(Circle())
             }
-            .foregroundColor(.white)
-            .font(.largeTitle)
-            .padding()
-          } //: VStack
-        } //: differntiateWithoutColor
-        
-      } //: VStack
+            .accessibility(label: Text("Correct"))
+            .accessibility(hint: Text("Mark your answer as being correct."))
+          }
+          .foregroundColor(.white)
+          .font(.largeTitle)
+          .padding()
+        } //: VStack
+      } //: differntiateWithoutColor
     } //: ZStack
     .onReceive(timer) { time in
       guard self.isActive else { return }
@@ -174,5 +173,6 @@ extension View {
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView()
+      .previewLayout(.fixed(width: 1000, height: 500))
   }
 }
