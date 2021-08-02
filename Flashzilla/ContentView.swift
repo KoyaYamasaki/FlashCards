@@ -68,11 +68,12 @@ struct ContentView: View {
           Button(action: {
             self.showingEditScreen = true
           }) {
-            Image(systemName: "plus.circle")
+            Image(systemName: "pencil.circle")
               .padding()
               .background(Color.black.opacity(0.7))
               .clipShape(Circle())
           }
+          .padding(.trailing, 50)
         }
         
         Spacer()
@@ -134,7 +135,7 @@ struct ContentView: View {
       }
     }
     .sheet(isPresented: $showingEditScreen, onDismiss: resetCards) {
-      EditCardsView()
+      CardDeckView()
     }
     .onAppear(perform: resetCards)
   }

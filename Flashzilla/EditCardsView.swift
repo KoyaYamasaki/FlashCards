@@ -9,12 +9,13 @@ import SwiftUI
 
 struct EditCardsView: View {
   @Environment(\.presentationMode) var presentationMode
-  @State private var cards = [Card]()
   @State private var newPrompt = ""
   @State private var newAnswer = ""
+  @Binding var deck: CardDeck
   
+  var saveDeck: ((CardDeck) -> Void)?
   var body: some View {
-    NavigationView {
+//    NavigationView {
       List {
         Section(header: Text("Add new card")) {
           TextField("Prompt", text: $newPrompt)
@@ -22,42 +23,28 @@ struct EditCardsView: View {
           Button("Add card", action: addCard)
         }
         
-        Section {
-          ForEach(0..<cards.count, id: \.self) { index in
+        Section(header: Text("Added")) {
+          ForEach(0..<deck.cards.count, id: \.self) { index in
             VStack(alignment: .leading) {
-              Text(self.cards[index].prompt)
+              Text(self.deck.cards[index].prompt)
                 .font(.headline)
-              Text(self.cards[index].answer)
+              Text(self.deck.cards[index].answer)
                 .foregroundColor(.secondary)
             }
           }
           .onDelete(perform: removeCards)
         }
       }
-      .navigationBarTitle("Edit Cards")
-      .navigationBarItems(trailing: Button("Done", action: dismiss))
+      .navigationBarTitle(deck.name)
+      .navigationBarItems(trailing: Button("Save", action: saveAndDismiss))
       .listStyle(GroupedListStyle())
-      .onAppear(perform: loadData)
-    }
-    .navigationViewStyle(StackNavigationViewStyle())
+//    }
+//    .navigationViewStyle(StackNavigationViewStyle())
   }
-  
-  func dismiss() {
+
+  func saveAndDismiss() {
+    saveDeck!(deck)
     presentationMode.wrappedValue.dismiss()
-  }
-  
-  func loadData() {
-    if let data = UserDefaults.standard.data(forKey: "Cards") {
-      if let decoded = try? JSONDecoder().decode([Card].self, from: data) {
-        self.cards = decoded
-      }
-    }
-  }
-  
-  func saveData() {
-    if let data = try? JSONEncoder().encode(cards) {
-      UserDefaults.standard.set(data, forKey: "Cards")
-    }
   }
   
   func addCard() {
@@ -65,19 +52,19 @@ struct EditCardsView: View {
     let trimmedAnswer = newAnswer.trimmingCharacters(in: .whitespaces)
     guard trimmedPrompt.isEmpty == false && trimmedAnswer.isEmpty == false else { return }
     
-    let card = Card(prompt: trimmedPrompt, answer: trimmedAnswer)
-    cards.insert(card, at: 0)
-    saveData()
+    let card = Card(id: UUID(), prompt: trimmedPrompt, answer: trimmedAnswer)
+    deck.cards.append(card)
   }
-  
+
   func removeCards(at offsets: IndexSet) {
-    cards.remove(atOffsets: offsets)
-    saveData()
+    deck.cards.remove(atOffsets: offsets)
   }
 }
 
 struct EditCardsView_Previews: PreviewProvider {
   static var previews: some View {
-    EditCardsView()
+    EditCardsView(deck: .constant(CardDeck.example)) { savedeck in
+      print(savedeck)
+    }
   }
 }
