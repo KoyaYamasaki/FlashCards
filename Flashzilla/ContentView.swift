@@ -13,12 +13,11 @@ struct ContentView: View {
   @Environment(\.accessibilityEnabled) var accessibilityEnabled
   
   @State private var cards: [Card] = []
-  @State private var timeRemaining = 100
+  @State private var cardsForRestart: [Card] = []
+  @State private var numberOfCards = 0
   @State private var isActive = true
   
-  let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-  
-  @State private var showingEditScreen = false
+  @State private var showingEditScreen = true
   
   var body: some View {
     ZStack {
@@ -27,7 +26,7 @@ struct ContentView: View {
         .scaledToFill()
         .edgesIgnoringSafeArea(.all)
       VStack {
-        Text("Time: \(timeRemaining)")
+        Text("\(cards.count) / \(numberOfCards)")
           .font(.largeTitle)
           .foregroundColor(.white)
           .padding(.horizontal, 20)
@@ -50,10 +49,12 @@ struct ContentView: View {
             .accessibility(hidden: index < self.cards.count - 1)
           }
         }
-        .allowsHitTesting(timeRemaining > 0)
+        .allowsHitTesting(cards.count > 0)
         
         if cards.isEmpty {
-          Button("Start Again", action: resetCards)
+          Button("Restart?", action: {
+            cards = cardsForRestart
+          })
             .padding()
             .background(Color.white)
             .foregroundColor(.black)
@@ -68,11 +69,12 @@ struct ContentView: View {
           Button(action: {
             self.showingEditScreen = true
           }) {
-            Image(systemName: "plus.circle")
+            Image(systemName: "pencil.circle")
               .padding()
               .background(Color.black.opacity(0.7))
               .clipShape(Circle())
           }
+          .padding(.trailing, 50)
         }
         
         Spacer()
@@ -82,75 +84,21 @@ struct ContentView: View {
       .padding()
       
       if differentiateWithoutColor || accessibilityEnabled {
-        VStack {
-          Spacer()
-          
-          HStack {
-            Button(action: {
-              withAnimation {
-                self.removeCard(at: self.cards.count - 1)
-              }
-            }) {
-              Image(systemName: "xmark.circle")
-                .padding()
-                .background(Color.black.opacity(0.7))
-                .clipShape(Circle())
-            }
-            .accessibility(label: Text("Wrong"))
-            .accessibility(hint: Text("Mark your answer as being incorrect."))
-            Spacer()
-            
-            Button(action: {
-              withAnimation {
-                self.removeCard(at: self.cards.count - 1)
-              }
-            }) {
-              Image(systemName: "checkmark.circle")
-                .padding()
-                .background(Color.black.opacity(0.7))
-                .clipShape(Circle())
-            }
-            .accessibility(label: Text("Correct"))
-            .accessibility(hint: Text("Mark your answer as being correct."))
-          }
-          .foregroundColor(.white)
-          .font(.largeTitle)
-          .padding()
-        } //: VStack
+        AccessibilityView() {
+          self.removeCard(at: self.cards.count - 1)
+        }
       } //: differntiateWithoutColor
     } //: ZStack
-    .onReceive(timer) { time in
-      guard self.isActive else { return }
-      if self.timeRemaining > 0 {
-        self.timeRemaining -= 1
-      }
-    }
-    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
-      self.isActive = false
-    }
-    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-      if self.cards.isEmpty == false {
-        self.isActive = true
-      }
-    }
     .sheet(isPresented: $showingEditScreen, onDismiss: resetCards) {
-      EditCardsView()
+      CardDeckView(selectedCards: $cards)
     }
     .onAppear(perform: resetCards)
   }
   
-  func loadData() {
-    if let data = UserDefaults.standard.data(forKey: "Cards") {
-      if let decoded = try? JSONDecoder().decode([Card].self, from: data) {
-        self.cards = decoded
-      }
-    }
-  }
-  
   func resetCards() {
-    timeRemaining = 100
+    numberOfCards = cards.count
+    cardsForRestart = cards
     isActive = true
-    loadData()
   }
   
   func removeCard(at index: Int) {
@@ -174,5 +122,47 @@ struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView()
       .previewLayout(.fixed(width: 1000, height: 500))
+  }
+}
+
+struct AccessibilityView: View {
+  var removeCard: () -> Void
+
+  var body: some View {
+    VStack {
+      Spacer()
+      
+      HStack {
+        Button(action: {
+          withAnimation {
+            removeCard()
+          }
+        }) {
+          Image(systemName: "xmark.circle")
+            .padding()
+            .background(Color.black.opacity(0.7))
+            .clipShape(Circle())
+        }
+        .accessibility(label: Text("Wrong"))
+        .accessibility(hint: Text("Mark your answer as being incorrect."))
+        Spacer()
+        
+        Button(action: {
+          withAnimation {
+            removeCard()
+          }
+        }) {
+          Image(systemName: "checkmark.circle")
+            .padding()
+            .background(Color.black.opacity(0.7))
+            .clipShape(Circle())
+        }
+        .accessibility(label: Text("Correct"))
+        .accessibility(hint: Text("Mark your answer as being correct."))
+      }
+      .foregroundColor(.white)
+      .font(.largeTitle)
+      .padding()
+    }
   }
 }
