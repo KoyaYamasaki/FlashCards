@@ -54,6 +54,7 @@ struct EditCardsView: View {
     
     let card = Card(id: UUID(), prompt: trimmedPrompt, answer: trimmedAnswer)
     deck.cards.append(card)
+    print(deck.cards.count)
   }
 
   func removeCards(at offsets: IndexSet) {
