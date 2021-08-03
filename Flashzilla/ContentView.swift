@@ -13,6 +13,7 @@ struct ContentView: View {
   @Environment(\.accessibilityEnabled) var accessibilityEnabled
   
   @State private var cards: [Card] = []
+  @State private var cardsForRestart: [Card] = []
   @State private var numberOfCards = 0
   @State private var isActive = true
   
@@ -52,7 +53,7 @@ struct ContentView: View {
         
         if cards.isEmpty {
           Button("Restart?", action: {
-            self.showingEditScreen = true
+            cards = cardsForRestart
           })
             .padding()
             .background(Color.white)
@@ -96,6 +97,7 @@ struct ContentView: View {
   
   func resetCards() {
     numberOfCards = cards.count
+    cardsForRestart = cards
     isActive = true
   }
   
