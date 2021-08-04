@@ -22,8 +22,13 @@ struct AddCardDeckView: View {
           TextField("Discription", text: $discription)
         }
       } //: List
+      .listStyle(GroupedListStyle())
       .navigationTitle("Add New Deck")
       .navigationBarItems(
+      leading:
+        Button("Back", action: {
+          self.showingAddDeckView = false
+        }),
       trailing:
         Button("Save", action: saveAndDismiss)
       )
