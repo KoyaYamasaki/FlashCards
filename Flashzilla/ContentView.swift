@@ -18,7 +18,8 @@ struct ContentView: View {
   @State private var isActive = true
   
   @State private var showingEditScreen = true
-  
+  @State private var correctAnswerCount: Int = 0
+
   var body: some View {
     ZStack {
       Image(decorative: "background")
@@ -26,7 +27,7 @@ struct ContentView: View {
         .scaledToFill()
         .edgesIgnoringSafeArea(.all)
       VStack {
-        Text("\(cards.count) / \(numberOfCards)")
+        Text(showCardRemainings)
           .font(.largeTitle)
           .foregroundColor(.white)
           .padding(.horizontal, 20)
@@ -39,7 +40,10 @@ struct ContentView: View {
         
         ZStack {
           ForEach(0..<cards.count, id: \.self) { index in
-            CardView(card: self.cards[index]) {
+            CardView(card: self.cards[index]) { answerCorrect in
+              if answerCorrect {
+                correctAnswerCount += 1
+              }
               withAnimation {
                 self.removeCard(at: index)
               }
@@ -54,6 +58,7 @@ struct ContentView: View {
         if cards.isEmpty {
           Button("Restart?", action: {
             cards = cardsForRestart
+            resetCards()
           })
             .padding()
             .background(Color.white)
@@ -94,8 +99,17 @@ struct ContentView: View {
     }
     .onAppear(perform: resetCards)
   }
-  
+
+  var showCardRemainings: String {
+    if cards.count != 0 {
+      return "\(cards.count) / \(numberOfCards)"
+    } else {
+      return "Correct \(correctAnswerCount) out of \(numberOfCards)"
+    }
+  }
+
   func resetCards() {
+    correctAnswerCount = 0
     numberOfCards = cards.count
     cardsForRestart = cards
     isActive = true
