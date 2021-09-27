@@ -1,16 +1,15 @@
 {
   "images" : [
     {
+      "filename" : "navi-photography-zkI6Ep6JYQs-unsplash.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "background@2x.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "background@3x.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }

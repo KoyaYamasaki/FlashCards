@@ -19,10 +19,11 @@ struct ContentView: View {
   
   @State private var showingEditScreen = true
   @State private var correctAnswerCount: Int = 0
+  let backgroundImage = "background\(Int.random(in: 1...10))"
 
   var body: some View {
     ZStack {
-      Image(decorative: "background")
+      Image(decorative: backgroundImage)
         .resizable()
         .scaledToFill()
         .edgesIgnoringSafeArea(.all)
