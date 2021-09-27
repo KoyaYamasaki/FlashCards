@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		460280C526AFE244007ADE01 /* FlashzillaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460280C426AFE244007ADE01 /* FlashzillaApp.swift */; };
+		460280C526AFE244007ADE01 /* FlashcardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460280C426AFE244007ADE01 /* FlashcardsApp.swift */; };
 		460280C726AFE244007ADE01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460280C626AFE244007ADE01 /* ContentView.swift */; };
 		460280C926AFE245007ADE01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 460280C826AFE245007ADE01 /* Assets.xcassets */; };
 		460280CC26AFE245007ADE01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 460280CB26AFE245007ADE01 /* Preview Assets.xcassets */; };
@@ -19,8 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		460280C126AFE244007ADE01 /* Flashzilla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flashzilla.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		460280C426AFE244007ADE01 /* FlashzillaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashzillaApp.swift; sourceTree = "<group>"; };
+		460280C126AFE244007ADE01 /* Flashcards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flashcards.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		460280C426AFE244007ADE01 /* FlashcardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardsApp.swift; sourceTree = "<group>"; };
 		460280C626AFE244007ADE01 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		460280C826AFE245007ADE01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		460280CB26AFE245007ADE01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		460280B826AFE244007ADE01 = {
 			isa = PBXGroup;
 			children = (
-				460280C326AFE244007ADE01 /* Flashzilla */,
+				460280C326AFE244007ADE01 /* Flashcards */,
 				460280C226AFE244007ADE01 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,15 +54,15 @@
 		460280C226AFE244007ADE01 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				460280C126AFE244007ADE01 /* Flashzilla.app */,
+				460280C126AFE244007ADE01 /* Flashcards.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		460280C326AFE244007ADE01 /* Flashzilla */ = {
+		460280C326AFE244007ADE01 /* Flashcards */ = {
 			isa = PBXGroup;
 			children = (
-				460280C426AFE244007ADE01 /* FlashzillaApp.swift */,
+				460280C426AFE244007ADE01 /* FlashcardsApp.swift */,
 				460280C626AFE244007ADE01 /* ContentView.swift */,
 				460280D326B21231007ADE01 /* Card.swift */,
 				460280D526B21303007ADE01 /* CardView.swift */,
@@ -73,7 +73,7 @@
 				460280CD26AFE245007ADE01 /* Info.plist */,
 				460280CA26AFE245007ADE01 /* Preview Content */,
 			);
-			path = Flashzilla;
+			path = Flashcards;
 			sourceTree = "<group>";
 		};
 		460280CA26AFE245007ADE01 /* Preview Content */ = {
@@ -87,9 +87,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		460280C026AFE244007ADE01 /* Flashzilla */ = {
+		460280C026AFE244007ADE01 /* Flashcards */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 460280D026AFE245007ADE01 /* Build configuration list for PBXNativeTarget "Flashzilla" */;
+			buildConfigurationList = 460280D026AFE245007ADE01 /* Build configuration list for PBXNativeTarget "Flashcards" */;
 			buildPhases = (
 				460280BD26AFE244007ADE01 /* Sources */,
 				460280BE26AFE244007ADE01 /* Frameworks */,
@@ -99,9 +99,9 @@
 			);
 			dependencies = (
 			);
-			name = Flashzilla;
+			name = Flashcards;
 			productName = Flashzilla;
-			productReference = 460280C126AFE244007ADE01 /* Flashzilla.app */;
+			productReference = 460280C126AFE244007ADE01 /* Flashcards.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -118,7 +118,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 460280BC26AFE244007ADE01 /* Build configuration list for PBXProject "Flashzilla" */;
+			buildConfigurationList = 460280BC26AFE244007ADE01 /* Build configuration list for PBXProject "Flashcards" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -131,7 +131,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				460280C026AFE244007ADE01 /* Flashzilla */,
+				460280C026AFE244007ADE01 /* Flashcards */,
 			);
 		};
 /* End PBXProject section */
@@ -158,7 +158,7 @@
 				460280D826B28D1A007ADE01 /* EditCardsView.swift in Sources */,
 				460280D626B21303007ADE01 /* CardView.swift in Sources */,
 				46201CA926B7BDDD00A8C456 /* AddCardDeckView.swift in Sources */,
-				460280C526AFE244007ADE01 /* FlashzillaApp.swift in Sources */,
+				460280C526AFE244007ADE01 /* FlashcardsApp.swift in Sources */,
 				46336E9026B6310900B54CF5 /* CardDeckView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,10 +288,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Flashzilla/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Flashcards/Preview Content\"";
 				DEVELOPMENT_TEAM = BV68V66Y4K;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Flashzilla/Info.plist;
+				INFOPLIST_FILE = Flashcards/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -310,10 +310,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Flashzilla/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Flashcards/Preview Content\"";
 				DEVELOPMENT_TEAM = BV68V66Y4K;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Flashzilla/Info.plist;
+				INFOPLIST_FILE = Flashcards/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -329,7 +329,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		460280BC26AFE244007ADE01 /* Build configuration list for PBXProject "Flashzilla" */ = {
+		460280BC26AFE244007ADE01 /* Build configuration list for PBXProject "Flashcards" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				460280CE26AFE245007ADE01 /* Debug */,
@@ -338,7 +338,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		460280D026AFE245007ADE01 /* Build configuration list for PBXNativeTarget "Flashzilla" */ = {
+		460280D026AFE245007ADE01 /* Build configuration list for PBXNativeTarget "Flashcards" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				460280D126AFE245007ADE01 /* Debug */,

@@ -1,6 +1,6 @@
 //
 //  Card.swift
-//  Flashzilla
+//  Flashcards
 //
 //  Created by 山崎宏哉 on 2021/07/29.
 //
