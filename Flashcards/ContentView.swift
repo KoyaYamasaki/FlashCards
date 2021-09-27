@@ -27,6 +27,25 @@ struct ContentView: View {
         .resizable()
         .scaledToFill()
         .edgesIgnoringSafeArea(.all)
+
+      VStack {
+        HStack {
+          Button(action: {
+            self.showingEditScreen = true
+          }) {
+            Image(systemName: "pencil.circle")
+              .padding()
+              .background(Color.black.opacity(0.7))
+              .clipShape(Circle())
+          }
+          .padding(.trailing, 50)
+          Spacer()
+        }
+      }
+      .foregroundColor(.white)
+      .font(.largeTitle)
+      .padding()
+
       VStack {
         Text(showCardRemainings)
           .font(.largeTitle)
@@ -67,27 +86,6 @@ struct ContentView: View {
             .clipShape(Capsule())
         }
       } //: VStack
-      
-      VStack {
-        HStack {
-          Spacer()
-          
-          Button(action: {
-            self.showingEditScreen = true
-          }) {
-            Image(systemName: "pencil.circle")
-              .padding()
-              .background(Color.black.opacity(0.7))
-              .clipShape(Circle())
-          }
-          .padding(.trailing, 50)
-        }
-        
-        Spacer()
-      }
-      .foregroundColor(.white)
-      .font(.largeTitle)
-      .padding()
       
       if differentiateWithoutColor || accessibilityEnabled {
         AccessibilityView() {
