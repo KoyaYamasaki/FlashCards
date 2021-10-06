@@ -11,9 +11,10 @@ struct EditCardsView: View {
   @Environment(\.presentationMode) var presentationMode
   @State private var newPrompt = ""
   @State private var newAnswer = ""
-  @Binding var deck: CardDeck
-  
-  var saveDeck: ((CardDeck) -> Void)?
+  var deck: Deck
+  @Environment(\.managedObjectContext) var viewContext
+
+  var saveDeck: ((Deck) -> Void)?
   var body: some View {
 //    NavigationView {
       List {
@@ -24,11 +25,11 @@ struct EditCardsView: View {
         }
         
         Section(header: Text("Added")) {
-          ForEach(0..<deck.cards.count, id: \.self) { index in
+          ForEach(deck.cards.sorted()) { card in
             VStack(alignment: .leading) {
-              Text(self.deck.cards[index].prompt)
+              Text(card.prompt)
                 .font(.headline)
-              Text(self.deck.cards[index].answer)
+              Text(card.answer)
                 .foregroundColor(.secondary)
             }
           }
@@ -52,20 +53,29 @@ struct EditCardsView: View {
     let trimmedAnswer = newAnswer.trimmingCharacters(in: .whitespaces)
     guard trimmedPrompt.isEmpty == false && trimmedAnswer.isEmpty == false else { return }
     
-    let card = Card(id: UUID(), prompt: trimmedPrompt, answer: trimmedAnswer)
-    deck.cards.append(card)
+//    let card = Card(id: UUID(), prompt: trimmedPrompt, answer: trimmedAnswer)
+    let card = Card(context: self.viewContext)
+    card.prompt = newPrompt
+    card.answer = newAnswer
+//    let coreDataDeck = Deck_(context: self.viewContext)
+//    coreDataDeck.uuid = UUID()
+//    coreDataDeck.name = name
+//    coreDataDeck.cards = []
+//    try? viewContext.save()
+    deck.cards.insert(card)
+    try? self.viewContext.save()
     print(deck.cards.count)
   }
 
   func removeCards(at offsets: IndexSet) {
-    deck.cards.remove(atOffsets: offsets)
+//    deck.cards.remove(atOffsets: offsets)
   }
 }
 
-struct EditCardsView_Previews: PreviewProvider {
-  static var previews: some View {
-    EditCardsView(deck: .constant(CardDeck.example)) { savedeck in
-      print(savedeck)
-    }
-  }
-}
+//struct EditCardsView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    EditCardsView(deck: .constant(CardDeck.example)) { savedeck in
+//      print(savedeck)
+//    }
+//  }
+//}
