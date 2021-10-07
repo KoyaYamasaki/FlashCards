@@ -52,23 +52,24 @@ struct EditCardsView: View {
     let trimmedPrompt = newPrompt.trimmingCharacters(in: .whitespaces)
     let trimmedAnswer = newAnswer.trimmingCharacters(in: .whitespaces)
     guard trimmedPrompt.isEmpty == false && trimmedAnswer.isEmpty == false else { return }
-    
-//    let card = Card(id: UUID(), prompt: trimmedPrompt, answer: trimmedAnswer)
+
     let card = Card(context: self.viewContext)
     card.prompt = newPrompt
     card.answer = newAnswer
-//    let coreDataDeck = Deck_(context: self.viewContext)
-//    coreDataDeck.uuid = UUID()
-//    coreDataDeck.name = name
-//    coreDataDeck.cards = []
-//    try? viewContext.save()
     deck.cards.insert(card)
     try? self.viewContext.save()
+    newPrompt = ""
+    newAnswer = ""
     print(deck.cards.count)
   }
 
   func removeCards(at offsets: IndexSet) {
-//    deck.cards.remove(atOffsets: offsets)
+    let cards = Array(deck.cards)
+    if let index = offsets.first {
+      let card = cards[index]
+      self.viewContext.delete(card)
+      try? self.viewContext.save()
+    }
   }
 }
 
