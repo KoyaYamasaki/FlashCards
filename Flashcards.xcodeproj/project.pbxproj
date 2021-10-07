@@ -77,7 +77,6 @@
 				465B083D2710388D00725237 /* CreateDecksView.swift */,
 				46336E8F26B6310900B54CF5 /* CardDeckView.swift */,
 				467738752702EBD400D80D73 /* Model.xcdatamodeld */,
-				46201CA826B7BDDD00A8C456 /* AddCardDeckView.swift */,
 				460280D726B28D1A007ADE01 /* EditCardsView.swift */,
 				460280C826AFE245007ADE01 /* Assets.xcassets */,
 				460280CD26AFE245007ADE01 /* Info.plist */,

@@ -21,8 +21,6 @@ struct ContentView: View {
   @State private var correctAnswerCount: Int = 0
 
   @Environment(\.managedObjectContext) private var viewContext
-//  @FetchRequest(entity: Card_.entity(),
-//    sortDescriptors: [NSSortDescriptor(keyPath: \Card_.prompt, ascending: true)]) var items: FetchedResults<Card_>
 
   let backgroundImage = "background\(Int.random(in: 1...10))"
 
