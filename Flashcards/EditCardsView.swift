@@ -11,10 +11,9 @@ struct EditCardsView: View {
   @Environment(\.presentationMode) var presentationMode
   @State private var newPrompt = ""
   @State private var newAnswer = ""
-  var deck: Deck
+  @ObservedObject var deck: Deck
   @Environment(\.managedObjectContext) var viewContext
 
-  var saveDeck: ((Deck) -> Void)?
   var body: some View {
 //    NavigationView {
       List {
@@ -44,23 +43,18 @@ struct EditCardsView: View {
   }
 
   func saveAndDismiss() {
-    saveDeck!(deck)
     presentationMode.wrappedValue.dismiss()
   }
   
   func addCard() {
-    let trimmedPrompt = newPrompt.trimmingCharacters(in: .whitespaces)
-    let trimmedAnswer = newAnswer.trimmingCharacters(in: .whitespaces)
-    guard trimmedPrompt.isEmpty == false && trimmedAnswer.isEmpty == false else { return }
-
-    let card = Card(context: self.viewContext)
+    let card = Card(uuid: UUID(), context: self.viewContext)
     card.prompt = newPrompt
     card.answer = newAnswer
     deck.cards.insert(card)
     try? self.viewContext.save()
+
     newPrompt = ""
     newAnswer = ""
-    print(deck.cards.count)
   }
 
   func removeCards(at offsets: IndexSet) {

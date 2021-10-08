@@ -14,7 +14,7 @@ struct CardDeckView: View {
   @Binding var selectedCards: [Card]
 
   @Environment(\.managedObjectContext) private var viewContext
-  @FetchRequest(entity: Deck.entity(), sortDescriptors: []) var decks: FetchedResults<Deck>
+  @FetchRequest(fetchRequest: Deck.fetch()) var decks: FetchedResults<Deck>
 
   var body: some View {
     NavigationView {
@@ -22,7 +22,6 @@ struct CardDeckView: View {
         ForEach(0..<decks.count, id: \.self) { index in
           if !editActive {
             Button(action: {
-//              let deckArray =
               selectedCards = Array(decks[index].cards)
               presentationMode.wrappedValue.dismiss()
             }, label: {
@@ -34,10 +33,7 @@ struct CardDeckView: View {
             })
           } else {
             NavigationLink(
-              destination: EditCardsView(deck: decks[index]) { saveDeck in
-//                decks.items[index] = saveDeck
-//                cardDecks.save()
-              },
+              destination: EditCardsView(deck: decks[index]),
               label: {
                 HStack {
                   Text(decks[index].name)
@@ -62,17 +58,19 @@ struct CardDeckView: View {
           }
       )
       .sheet(isPresented: $showingAddDeckView) {
-        AddCardDeckView(showingAddDeckView: $showingAddDeckView) { newDeck in
-//          cardDecks.add(newDeck)
-        }
+        AddCardDeckView(showingAddDeckView: $showingAddDeckView)
         .environment(\.managedObjectContext, self.viewContext)
       } //: Sheet
     } //: NavigationView
   } //: Body
 
   func removeDeck(at offsets: IndexSet) {
-//    decks.remove(atOffsets: offsets)
-//    cardDecks.save()
+    let decks = Array(decks)
+    if let index = offsets.first {
+      let deck = decks[index]
+      self.viewContext.delete(deck)
+      try? self.viewContext.save()
+    }
   }
 }
 
