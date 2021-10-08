@@ -14,7 +14,7 @@ struct AddCardDeckView: View {
 
   var saveDeck: ((Deck) -> Void)?
 
-  @Environment(\.managedObjectContext) var viewContext
+  @Environment(\.managedObjectContext) private var viewContext
 
   var body: some View {
     NavigationView {
@@ -38,10 +38,7 @@ struct AddCardDeckView: View {
   } //: Body
 
   func saveAndDismiss() {
-//    let cardDeck = CardDeck(id: UUID(), name: name, cards: [])
-    //    saveDeck!(cardDeck)
-    let coreDataDeck = Deck(context: self.viewContext)
-    coreDataDeck.uuid = UUID()
+    let coreDataDeck = Deck(uuid: UUID(), context: self.viewContext)
     coreDataDeck.name = name
     coreDataDeck.cards = []
     try? viewContext.save()
