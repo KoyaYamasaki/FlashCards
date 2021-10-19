@@ -16,6 +16,10 @@
 		460280D826B28D1A007ADE01 /* EditCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460280D726B28D1A007ADE01 /* EditCardsView.swift */; };
 		46201CA926B7BDDD00A8C456 /* AddCardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46201CA826B7BDDD00A8C456 /* AddCardDeckView.swift */; };
 		46336E9026B6310900B54CF5 /* CardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46336E8F26B6310900B54CF5 /* CardDeckView.swift */; };
+		4651CD6027060DCA00977426 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4651CD5F27060DCA00977426 /* Persistence.swift */; };
+		465B083E2710388D00725237 /* CreateDecksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465B083D2710388D00725237 /* CreateDecksView.swift */; };
+		467738772702EBD400D80D73 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 467738752702EBD400D80D73 /* Model.xcdatamodeld */; };
+		467738792702F5BC00D80D73 /* Card+DeckExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467738782702F5BC00D80D73 /* Card+DeckExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		460280D726B28D1A007ADE01 /* EditCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardsView.swift; sourceTree = "<group>"; };
 		46201CA826B7BDDD00A8C456 /* AddCardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardDeckView.swift; sourceTree = "<group>"; };
 		46336E8F26B6310900B54CF5 /* CardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckView.swift; sourceTree = "<group>"; };
+		4651CD5F27060DCA00977426 /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		465B083D2710388D00725237 /* CreateDecksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDecksView.swift; sourceTree = "<group>"; };
+		467738762702EBD400D80D73 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		467738782702F5BC00D80D73 /* Card+DeckExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+DeckExtension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +74,8 @@
 				460280C626AFE244007ADE01 /* ContentView.swift */,
 				460280D326B21231007ADE01 /* Card.swift */,
 				460280D526B21303007ADE01 /* CardView.swift */,
+				46201CA826B7BDDD00A8C456 /* AddCardDeckView.swift */,
+				465B083D2710388D00725237 /* CreateDecksView.swift */,
 				46336E8F26B6310900B54CF5 /* CardDeckView.swift */,
 				46201CA826B7BDDD00A8C456 /* AddCardDeckView.swift */,
 				460280D726B28D1A007ADE01 /* EditCardsView.swift */,
@@ -160,6 +170,8 @@
 				46201CA926B7BDDD00A8C456 /* AddCardDeckView.swift in Sources */,
 				460280C526AFE244007ADE01 /* FlashcardsApp.swift in Sources */,
 				46336E9026B6310900B54CF5 /* CardDeckView.swift in Sources */,
+				465B083E2710388D00725237 /* CreateDecksView.swift in Sources */,
+				4651CD6027060DCA00977426 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

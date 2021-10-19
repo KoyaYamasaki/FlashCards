@@ -21,6 +21,12 @@ struct AddCardDeckView: View {
           TextField("Name", text: $name)
           TextField("Discription", text: $discription)
         }
+        NavigationLink(
+          destination: CreateDecksView(),
+          label: {
+            Text("Create Decks from text")
+          })
+          .environment(\.managedObjectContext, viewContext)
       } //: List
       .listStyle(GroupedListStyle())
       .navigationTitle("Add New Deck")
@@ -47,5 +53,6 @@ struct AddCardDeckView_Previews: PreviewProvider {
     AddCardDeckView(showingAddDeckView: .constant(true)) { newDeck in
       print(newDeck)
     }
+    .previewLayout(.fixed(width: 644, height: 421))
   }
 }
