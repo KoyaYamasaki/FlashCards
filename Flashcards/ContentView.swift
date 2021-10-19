@@ -19,6 +19,9 @@ struct ContentView: View {
   
   @State private var showingEditScreen = true
   @State private var correctAnswerCount: Int = 0
+
+  @Environment(\.managedObjectContext) private var viewContext
+
   let backgroundImage = "background\(Int.random(in: 1...10))"
 
   var body: some View {
@@ -95,6 +98,7 @@ struct ContentView: View {
     } //: ZStack
     .sheet(isPresented: $showingEditScreen, onDismiss: resetCards) {
       CardDeckView(selectedCards: $cards)
+        .environment(\.managedObjectContext, self.viewContext)
     }
     .onAppear(perform: resetCards)
   }

@@ -12,7 +12,9 @@ struct AddCardDeckView: View {
   @State private var discription: String = ""
   @Binding var showingAddDeckView: Bool
 
-  var saveDeck: ((CardDeck) -> Void)?
+  var saveDeck: ((Deck) -> Void)?
+
+  @Environment(\.managedObjectContext) private var viewContext
 
   var body: some View {
     NavigationView {
@@ -42,8 +44,11 @@ struct AddCardDeckView: View {
   } //: Body
 
   func saveAndDismiss() {
-    let cardDeck = CardDeck(id: UUID(), name: name, cards: [])
-    saveDeck!(cardDeck)
+    let coreDataDeck = Deck(uuid: UUID(), context: self.viewContext)
+    coreDataDeck.name = name
+    coreDataDeck.cards = []
+    try? viewContext.save()
+
     self.showingAddDeckView = false
   }
 }

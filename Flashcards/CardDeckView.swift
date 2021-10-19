@@ -9,39 +9,39 @@ import SwiftUI
 
 struct CardDeckView: View {
   @Environment(\.presentationMode) var presentationMode
-  @ObservedObject var cardDecks = CardDecks()
   @State private var showingAddDeckView = false
   @State private var editActive = false
   @Binding var selectedCards: [Card]
 
+  @Environment(\.managedObjectContext) private var viewContext
+  @FetchRequest(fetchRequest: Deck.fetch()) var decks: FetchedResults<Deck>
+
   var body: some View {
     NavigationView {
       List {
-        ForEach(0..<cardDecks.items.count, id: \.self) { index in
+        ForEach(0..<decks.count, id: \.self) { index in
           if !editActive {
             Button(action: {
-              selectedCards = cardDecks.items[index].cards
+              selectedCards = Array(decks[index].cards)
               presentationMode.wrappedValue.dismiss()
             }, label: {
               HStack {
-                Text(cardDecks.items[index].name)
+                Text(decks[index].name)
                 Spacer()
-                Text("\(cardDecks.items[index].cards.count) / 50")
+                Text("\(decks[index].cards.count) / 50")
               }
             })
           } else {
             NavigationLink(
-              destination: EditCardsView(deck: $cardDecks.items[index]) { saveDeck in
-                cardDecks.items[index] = saveDeck
-                cardDecks.save()
-              },
+              destination: EditCardsView(deck: decks[index]),
               label: {
                 HStack {
-                  Text(cardDecks.items[index].name)
+                  Text(decks[index].name)
                   Spacer()
-                  Text("\(cardDecks.items[index].cards.count) / 50")
+                  Text("\(decks[index].cards.count) / 50")
                 }
               }) //: NavigationLink
+              .environment(\.managedObjectContext, self.viewContext)
           }
         } //: ForEach
         .onDelete(perform: removeDeck)
@@ -58,21 +58,24 @@ struct CardDeckView: View {
           }
       )
       .sheet(isPresented: $showingAddDeckView) {
-        AddCardDeckView(showingAddDeckView: $showingAddDeckView) { newDeck in
-          cardDecks.add(newDeck)
-        }
+        AddCardDeckView(showingAddDeckView: $showingAddDeckView)
+        .environment(\.managedObjectContext, self.viewContext)
       } //: Sheet
     } //: NavigationView
   } //: Body
 
   func removeDeck(at offsets: IndexSet) {
-    cardDecks.items.remove(atOffsets: offsets)
-    cardDecks.save()
+    let decks = Array(decks)
+    if let index = offsets.first {
+      let deck = decks[index]
+      self.viewContext.delete(deck)
+      try? self.viewContext.save()
+    }
   }
 }
 
-struct CardsDeckView_Previews: PreviewProvider {
-  static var previews: some View {
-    CardDeckView(selectedCards: .constant([Card.example]))
-  }
-}
+//struct CardsDeckView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    CardDeckView(selectedCards: .constant([Card.example]))
+//  }
+//}

@@ -11,9 +11,9 @@ struct EditCardsView: View {
   @Environment(\.presentationMode) var presentationMode
   @State private var newPrompt = ""
   @State private var newAnswer = ""
-  @Binding var deck: CardDeck
-  
-  var saveDeck: ((CardDeck) -> Void)?
+  @ObservedObject var deck: Deck
+  @Environment(\.managedObjectContext) var viewContext
+
   var body: some View {
 //    NavigationView {
       List {
@@ -24,11 +24,11 @@ struct EditCardsView: View {
         }
         
         Section(header: Text("Added")) {
-          ForEach(0..<deck.cards.count, id: \.self) { index in
+          ForEach(deck.cards.sorted()) { card in
             VStack(alignment: .leading) {
-              Text(self.deck.cards[index].prompt)
+              Text(card.prompt)
                 .font(.headline)
-              Text(self.deck.cards[index].answer)
+              Text(card.answer)
                 .foregroundColor(.secondary)
             }
           }
@@ -43,29 +43,34 @@ struct EditCardsView: View {
   }
 
   func saveAndDismiss() {
-    saveDeck!(deck)
     presentationMode.wrappedValue.dismiss()
   }
   
   func addCard() {
-    let trimmedPrompt = newPrompt.trimmingCharacters(in: .whitespaces)
-    let trimmedAnswer = newAnswer.trimmingCharacters(in: .whitespaces)
-    guard trimmedPrompt.isEmpty == false && trimmedAnswer.isEmpty == false else { return }
-    
-    let card = Card(id: UUID(), prompt: trimmedPrompt, answer: trimmedAnswer)
-    deck.cards.append(card)
-    print(deck.cards.count)
+    let card = Card(uuid: UUID(), context: self.viewContext)
+    card.prompt = newPrompt
+    card.answer = newAnswer
+    deck.cards.insert(card)
+    try? self.viewContext.save()
+
+    newPrompt = ""
+    newAnswer = ""
   }
 
   func removeCards(at offsets: IndexSet) {
-    deck.cards.remove(atOffsets: offsets)
-  }
-}
-
-struct EditCardsView_Previews: PreviewProvider {
-  static var previews: some View {
-    EditCardsView(deck: .constant(CardDeck.example)) { savedeck in
-      print(savedeck)
+    let cards = Array(deck.cards)
+    if let index = offsets.first {
+      let card = cards[index]
+      self.viewContext.delete(card)
+      try? self.viewContext.save()
     }
   }
 }
+
+//struct EditCardsView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    EditCardsView(deck: .constant(CardDeck.example)) { savedeck in
+//      print(savedeck)
+//    }
+//  }
+//}
