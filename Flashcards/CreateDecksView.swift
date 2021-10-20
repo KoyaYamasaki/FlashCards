@@ -10,22 +10,49 @@ import SwiftUI
 struct CreateDecksView: View {
   @State private var text = ""
   @State private var promptAndAnswers: [String] = []
-  @State private var inputText = false
   @State private var deckName = ""
-  
+  @State private var shapeText = false
+  @State private var registerDeck = false
+
+  @State private var prompt: [String] = []
+  @State private var answer: [String] = []
+
+  @Environment(\.presentationMode) var presentationMode
   @Environment(\.managedObjectContext) private var viewContext
+
   var body: some View {
     VStack {
-      VStack {
-        TextField("Deck Name Here", text: $deckName)
-        TextEditor(text: $text)
-          .keyboardType(.alphabet)
-          .font(.subheadline)
-          .padding(.horizontal)
-          .font(Font.system(size: 38.00))
-          .frame(minWidth: 10, maxWidth: .infinity, minHeight: 10, maxHeight: 300, alignment: .topLeading)
-          .border(Color.black)
-          .clipped()
+      if shapeText {
+        VStack(spacing: 10) {
+          Button("Register Deck") {
+            registerDeck = true
+          }
+          List {
+            ForEach(0..<prompt.count) { index in
+              HStack() {
+                Text("prompt : " + prompt[index])
+                  .frame(width: 300, alignment: .leading)
+                Text("answer : " + answer[index])
+                  .frame(width: 300, alignment: .leading)
+              }
+            }
+          }
+        }
+        .padding()
+      } else {
+        VStack {
+          TextField("Name this set", text: $deckName)
+          TextEditor(text: $text)
+            .modifier(TextInputExample())
+            .keyboardType(.alphabet)
+            .font(.subheadline)
+            .padding(.horizontal)
+            .font(Font.system(size: 38.00))
+            .frame(minWidth: 10, maxWidth: .infinity, minHeight: 10, maxHeight: 300, alignment: .topLeading)
+            .border(Color.black)
+            .clipped()
+        }
+        .padding()
       }
     }
     .navigationTitle("Import Text")
@@ -33,35 +60,47 @@ struct CreateDecksView: View {
       trailing:
         Button("Create Deck from text") {
           UIApplication.shared.endEditing()
-          inputText = true
+          if !text.isEmpty {
+            getPromptAndAnswer()
+          }
         }
+        .disabled(shapeText)
     )
-    .alert(isPresented: $inputText) {
+    .alert(isPresented: $registerDeck) {
       Alert(title: Text("Create Decks"),
             primaryButton: .default(Text("Create"), action: {
               saveToCoreData()
-              inputText = false
+              registerDeck = false
+              presentationMode.wrappedValue.dismiss()
             }),
             secondaryButton: .cancel(Text("Cancel"), action: {
-              inputText = false
+              registerDeck = false
             })
       )
     } //: End of Alert
   } //: End of VStack
-  
+
+  func getPromptAndAnswer() {
+    promptAndAnswers = text.components(separatedBy: "\n")
+    for elem in promptAndAnswers {
+      let singlePromptAndAnswer = elem.components(separatedBy: ":")
+      if singlePromptAndAnswer.count <= 2 {
+        prompt.append(singlePromptAndAnswer[0])
+        answer.append(singlePromptAndAnswer[1])
+      }
+    }
+    shapeText = true
+  }
+
   func saveToCoreData() {
     let coreDataDeck = Deck(uuid: UUID(), context: self.viewContext)
     coreDataDeck.name = deckName
     var coreDataCards: Set<Card> = []
-    
-    promptAndAnswers = text.components(separatedBy: "\n")
-    for elem in promptAndAnswers {
-      let singlePromptAndAnswer = elem.components(separatedBy: ":")
-      
+
+    for i in 0..<prompt.count {
       let card = Card(uuid: UUID(), context: self.viewContext)
-      card.prompt = singlePromptAndAnswer[0]
-      card.answer = singlePromptAndAnswer[1]
-      
+      card.prompt = prompt[i]
+      card.answer = answer[i]
       coreDataCards.insert(card)
     }
     
@@ -73,6 +112,18 @@ struct CreateDecksView: View {
 extension UIApplication {
   func endEditing() {
     sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+  }
+}
+
+struct TextInputExample: ViewModifier {
+
+  func body(content: Content) -> some View {
+    VStack(alignment: .leading) {
+      Text("Prompt:Answer")
+        .foregroundColor(.gray)
+      content
+    }
+    .padding(.top, 10)
   }
 }
 
