@@ -28,7 +28,7 @@ struct CardDeckView: View {
               HStack {
                 Text(decks[index].name)
                 Spacer()
-                Text("\(decks[index].cards.count) / 50")
+                Text("\(decks[index].cards.count) Sets")
               }
             })
           } else {

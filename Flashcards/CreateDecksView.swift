@@ -41,8 +41,9 @@ struct CreateDecksView: View {
         .padding()
       } else {
         VStack {
-          TextField("Deck Name Here", text: $deckName)
+          TextField("Name this set", text: $deckName)
           TextEditor(text: $text)
+            .modifier(TextInputExample())
             .keyboardType(.alphabet)
             .font(.subheadline)
             .padding(.horizontal)
@@ -83,8 +84,10 @@ struct CreateDecksView: View {
     promptAndAnswers = text.components(separatedBy: "\n")
     for elem in promptAndAnswers {
       let singlePromptAndAnswer = elem.components(separatedBy: ":")
-      prompt.append(singlePromptAndAnswer[0])
-      answer.append(singlePromptAndAnswer[1])
+      if singlePromptAndAnswer.count <= 2 {
+        prompt.append(singlePromptAndAnswer[0])
+        answer.append(singlePromptAndAnswer[1])
+      }
     }
     shapeText = true
   }
@@ -109,6 +112,18 @@ struct CreateDecksView: View {
 extension UIApplication {
   func endEditing() {
     sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+  }
+}
+
+struct TextInputExample: ViewModifier {
+
+  func body(content: Content) -> some View {
+    VStack(alignment: .leading) {
+      Text("Prompt:Answer")
+        .foregroundColor(.gray)
+      content
+    }
+    .padding(.top, 10)
   }
 }
 
