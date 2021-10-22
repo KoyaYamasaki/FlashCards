@@ -12,17 +12,23 @@ struct EditCardsView: View {
   @State private var newPrompt = ""
   @State private var newAnswer = ""
   @ObservedObject var deck: Deck
+  @State private var showingCreateDeckView = false
   @Environment(\.managedObjectContext) var viewContext
-
+  
   var body: some View {
-//    NavigationView {
+    VStack {
       List {
         Section(header: Text("Add new card")) {
-          TextField("Prompt", text: $newPrompt)
-          TextField("Answer", text: $newAnswer)
+          HStack {
+            TextField("Prompt", text: $newPrompt)
+            Text(":")
+            TextField("Answer", text: $newAnswer)
+          }
           Button("Add card", action: addCard)
         }
-        
+        Section() {
+          NavigationLink("Import Text", destination: CreateDecksView())
+        }
         Section(header: Text("Added")) {
           ForEach(deck.cards.sorted()) { card in
             VStack(alignment: .leading) {
@@ -33,13 +39,15 @@ struct EditCardsView: View {
             }
           }
           .onDelete(perform: removeCards)
-        }
-      }
-      .navigationBarTitle(deck.name)
-      .navigationBarItems(trailing: Button("Save", action: saveAndDismiss))
-      .listStyle(GroupedListStyle())
-//    }
-//    .navigationViewStyle(StackNavigationViewStyle())
+        } //: Section
+      } //: List
+    }
+    .navigationBarTitle(deck.name)
+    .navigationBarItems(trailing: Button("Save", action: saveAndDismiss))
+    .listStyle(GroupedListStyle())
+    .sheet(isPresented: $showingCreateDeckView) {
+      CreateDecksView()
+    }
   }
 
   func saveAndDismiss() {
@@ -69,6 +77,7 @@ struct EditCardsView: View {
 
 struct EditCardsView_Previews: PreviewProvider {
   static var previews: some View {
-    EditCardsView(deck: Deck(context: PersistenceController.shared.container.viewContext))
+    EditCardsView(deck: Deck(context: PersistenceController.preview.container.viewContext))
+      .previewLayout(.fixed(width: 644, height: 421))
   }
 }

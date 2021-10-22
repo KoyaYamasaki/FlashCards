@@ -41,15 +41,10 @@ struct ContentView: View {
               .background(Color.black.opacity(0.7))
               .clipShape(Circle())
           }
-          .padding(.trailing, 50)
-          Spacer()
+          .foregroundColor(.white)
+          .font(.largeTitle)
+          .padding()
         }
-      }
-      .foregroundColor(.white)
-      .font(.largeTitle)
-      .padding()
-
-      VStack {
         Text(showCardRemainings)
           .font(.largeTitle)
           .foregroundColor(.white)
@@ -138,6 +133,7 @@ extension View {
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView()
+      .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
       .previewLayout(.fixed(width: 1000, height: 500))
   }
 }

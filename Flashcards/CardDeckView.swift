@@ -74,6 +74,9 @@ struct CardDeckView: View {
 
 struct CardsDeckView_Previews: PreviewProvider {
   static var previews: some View {
-    CardDeckView(selectedCards: .constant([Card(context: PersistenceController.shared.container.viewContext)]))
+    let cards = [Card(context: PersistenceController.preview.container.viewContext)]
+    CardDeckView(selectedCards: .constant(cards))
+      .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+      .previewLayout(.fixed(width: 644, height: 421))
   }
 }
