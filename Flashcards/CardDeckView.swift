@@ -38,7 +38,7 @@ struct CardDeckView: View {
                 HStack {
                   Text(decks[index].name)
                   Spacer()
-                  Text("\(decks[index].cards.count) / 50")
+                  Text("\(decks[index].cards.count) Sets")
                 }
               }) //: NavigationLink
               .environment(\.managedObjectContext, self.viewContext)
@@ -53,15 +53,13 @@ struct CardDeckView: View {
             editActive.toggle()
           },
         trailing:
-          Button("Add Deck") {
+          Button("Add New Deck") {
             showingAddDeckView = true
           }
       )
-      .sheet(isPresented: $showingAddDeckView) {
-        AddCardDeckView(showingAddDeckView: $showingAddDeckView)
-        .environment(\.managedObjectContext, self.viewContext)
-      } //: Sheet
     } //: NavigationView
+    CreateDeckAlert(isShowingAlert: $showingAddDeckView)
+      .environment(\.managedObjectContext, self.viewContext)
   } //: Body
 
   func removeDeck(at offsets: IndexSet) {
@@ -74,8 +72,8 @@ struct CardDeckView: View {
   }
 }
 
-//struct CardsDeckView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    CardDeckView(selectedCards: .constant([Card.example]))
-//  }
-//}
+struct CardsDeckView_Previews: PreviewProvider {
+  static var previews: some View {
+    CardDeckView(selectedCards: .constant([Card(context: PersistenceController.shared.container.viewContext)]))
+  }
+}

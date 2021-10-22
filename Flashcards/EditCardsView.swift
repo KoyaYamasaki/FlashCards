@@ -67,10 +67,8 @@ struct EditCardsView: View {
   }
 }
 
-//struct EditCardsView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    EditCardsView(deck: .constant(CardDeck.example)) { savedeck in
-//      print(savedeck)
-//    }
-//  }
-//}
+struct EditCardsView_Previews: PreviewProvider {
+  static var previews: some View {
+    EditCardsView(deck: Deck(context: PersistenceController.shared.container.viewContext))
+  }
+}
