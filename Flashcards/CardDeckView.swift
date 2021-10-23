@@ -12,6 +12,7 @@ struct CardDeckView: View {
   @State private var showingAddDeckView = false
   @State private var editActive = false
   @Binding var selectedCards: [Card]
+  @Binding var showContentView: Bool
 
   @Environment(\.managedObjectContext) private var viewContext
   @FetchRequest(fetchRequest: Deck.fetch()) var decks: FetchedResults<Deck>
@@ -50,7 +51,8 @@ struct CardDeckView: View {
       .navigationBarItems(
         leading:
           Button(editActive ? "Done": "Edit") {
-            editActive.toggle()
+//            editActive.toggle()
+            showContentView = true
           },
         trailing:
           Button("Add New Deck") {
@@ -75,7 +77,7 @@ struct CardDeckView: View {
 struct CardsDeckView_Previews: PreviewProvider {
   static var previews: some View {
     let cards = [Card(context: PersistenceController.preview.container.viewContext)]
-    CardDeckView(selectedCards: .constant(cards))
+    CardDeckView(selectedCards: .constant(cards), showContentView: .constant(false))
       .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
       .previewLayout(.fixed(width: 644, height: 421))
   }
