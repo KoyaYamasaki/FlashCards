@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  FlashCardsView.swift
 //  Flashcards
 //
 //  Created by 山崎宏哉 on 2021/07/27.
@@ -8,16 +8,16 @@
 import SwiftUI
 import CoreHaptics
 
-struct ContentView: View {
+struct FlashCardsView: View {
   @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
   @Environment(\.accessibilityEnabled) var accessibilityEnabled
-  
-  @State private var cards: [Card] = []
+
+  @Binding var cards: [Card]
+  @Binding var showContentView: Bool
   @State private var cardsForRestart: [Card] = []
   @State private var numberOfCards = 0
   @State private var isActive = true
   
-  @State private var showingEditScreen = true
   @State private var correctAnswerCount: Int = 0
 
   @Environment(\.managedObjectContext) private var viewContext
@@ -34,7 +34,7 @@ struct ContentView: View {
       VStack {
         HStack {
           Button(action: {
-            self.showingEditScreen = true
+            self.showContentView = false
           }) {
             Image(systemName: "pencil.circle")
               .padding()
@@ -91,10 +91,6 @@ struct ContentView: View {
         }
       } //: differntiateWithoutColor
     } //: ZStack
-    .sheet(isPresented: $showingEditScreen, onDismiss: resetCards) {
-      CardDeckView(selectedCards: $cards)
-        .environment(\.managedObjectContext, self.viewContext)
-    }
     .onAppear(perform: resetCards)
   }
 
@@ -132,7 +128,8 @@ extension View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    let cards = Card(context: PersistenceController.preview.container.viewContext)
+    FlashCardsView(cards: .constant([cards]), showContentView: .constant(true))
       .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
       .previewLayout(.fixed(width: 1000, height: 500))
   }

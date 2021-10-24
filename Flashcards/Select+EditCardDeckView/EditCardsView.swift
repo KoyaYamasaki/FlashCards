@@ -27,7 +27,7 @@ struct EditCardsView: View {
           Button("Add card", action: addCard)
         }
         Section() {
-          NavigationLink("Import Text", destination: CreateDecksView())
+          NavigationLink("Import Text", destination: ImportTextView(deck: deck))
         }
         Section(header: Text("Added")) {
           ForEach(deck.cards.sorted()) { card in
@@ -45,9 +45,6 @@ struct EditCardsView: View {
     .navigationBarTitle(deck.name)
     .navigationBarItems(trailing: Button("Save", action: saveAndDismiss))
     .listStyle(GroupedListStyle())
-    .sheet(isPresented: $showingCreateDeckView) {
-      CreateDecksView()
-    }
   }
 
   func saveAndDismiss() {

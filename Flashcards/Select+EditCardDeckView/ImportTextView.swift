@@ -1,5 +1,5 @@
 //
-//  CreateDecks.swift
+//  ImportTextView.swift
 //  Flashcards
 //
 //  Created by 山崎宏哉 on 2021/10/08.
@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct CreateDecksView: View {
+struct ImportTextView: View {
+  @ObservedObject var deck: Deck
+
   @State private var text = ""
   @State private var promptAndAnswers: [String] = []
-  @State private var deckName = ""
   @State private var shapeText = false
   @State private var registerDeck = false
 
@@ -41,15 +42,14 @@ struct CreateDecksView: View {
         .padding()
       } else {
         VStack {
-          TextField("Name this set", text: $deckName)
+          Text("Currently \(deck.cards.count) Sets in this deck")
           TextEditor(text: $text)
             .modifier(TextInputExample())
             .keyboardType(.alphabet)
-            .font(.subheadline)
             .padding(.horizontal)
-            .font(Font.system(size: 38.00))
+            .font(.subheadline)
             .frame(minWidth: 10, maxWidth: .infinity, minHeight: 10, maxHeight: 300, alignment: .topLeading)
-            .border(Color.black)
+            .border(Color.primary)
             .clipped()
         }
         .padding()
@@ -58,7 +58,7 @@ struct CreateDecksView: View {
     .navigationTitle("Import Text")
     .navigationBarItems(
       trailing:
-        Button("Create Deck from text") {
+        Button("Create Sets from text") {
           UIApplication.shared.endEditing()
           if !text.isEmpty {
             getPromptAndAnswer()
@@ -67,15 +67,15 @@ struct CreateDecksView: View {
         .disabled(shapeText)
     )
     .alert(isPresented: $registerDeck) {
-      Alert(title: Text("Create Decks"),
-            primaryButton: .default(Text("Create"), action: {
-              saveToCoreData()
-              registerDeck = false
-              presentationMode.wrappedValue.dismiss()
-            }),
+      Alert(title: Text("Add this to \(deck.name)?"),
+            primaryButton: .default(Text("Add"), action: {
+        saveToCoreData()
+        registerDeck = false
+        presentationMode.wrappedValue.dismiss()
+      }),
             secondaryButton: .cancel(Text("Cancel"), action: {
-              registerDeck = false
-            })
+        registerDeck = false
+      })
       )
     } //: End of Alert
   } //: End of VStack
@@ -93,18 +93,14 @@ struct CreateDecksView: View {
   }
 
   func saveToCoreData() {
-    let coreDataDeck = Deck(uuid: UUID(), context: self.viewContext)
-    coreDataDeck.name = deckName
-    var coreDataCards: Set<Card> = []
 
     for i in 0..<prompt.count {
       let card = Card(uuid: UUID(), context: self.viewContext)
       card.prompt = prompt[i]
       card.answer = answer[i]
-      coreDataCards.insert(card)
+      deck.cards.insert(card)
     }
     
-    coreDataDeck.cards = coreDataCards
     try? viewContext.save()
   }
 }
@@ -116,7 +112,7 @@ extension UIApplication {
 }
 
 struct TextInputExample: ViewModifier {
-
+  
   func body(content: Content) -> some View {
     VStack(alignment: .leading) {
       Text("Prompt:Answer")
@@ -129,7 +125,13 @@ struct TextInputExample: ViewModifier {
 
 struct CreateDecksView_Previews: PreviewProvider {
   static var previews: some View {
-    CreateDecksView()
-      .previewLayout(.fixed(width: 644, height: 421))
+    let deck = Deck(uuid: UUID(), context: PersistenceController.preview.container.viewContext)
+    ZStack {
+      Color.black
+        .edgesIgnoringSafeArea(.all)
+      ImportTextView(deck: deck)
+        .environment(\.colorScheme, .dark)
+    }
+    .previewLayout(.fixed(width: 644, height: 421))
   }
 }

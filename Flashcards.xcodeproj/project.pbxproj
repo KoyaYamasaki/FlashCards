@@ -8,16 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		460280C526AFE244007ADE01 /* FlashcardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460280C426AFE244007ADE01 /* FlashcardsApp.swift */; };
-		460280C726AFE244007ADE01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460280C626AFE244007ADE01 /* ContentView.swift */; };
+		460280C726AFE244007ADE01 /* FlashCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460280C626AFE244007ADE01 /* FlashCardsView.swift */; };
 		460280C926AFE245007ADE01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 460280C826AFE245007ADE01 /* Assets.xcassets */; };
 		460280CC26AFE245007ADE01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 460280CB26AFE245007ADE01 /* Preview Assets.xcassets */; };
 		460280D626B21303007ADE01 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460280D526B21303007ADE01 /* CardView.swift */; };
 		460280D826B28D1A007ADE01 /* EditCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460280D726B28D1A007ADE01 /* EditCardsView.swift */; };
-		46201CA926B7BDDD00A8C456 /* AddCardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46201CA826B7BDDD00A8C456 /* AddCardDeckView.swift */; };
+		463313972723DD8800AB7239 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463313962723DD8800AB7239 /* MainView.swift */; };
 		46336E9026B6310900B54CF5 /* CardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46336E8F26B6310900B54CF5 /* CardDeckView.swift */; };
 		464EE3EE2722D84D0014B2D9 /* CreateDeckAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464EE3ED2722D84D0014B2D9 /* CreateDeckAlert.swift */; };
 		4651CD6027060DCA00977426 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4651CD5F27060DCA00977426 /* Persistence.swift */; };
-		465B083E2710388D00725237 /* CreateDecksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465B083D2710388D00725237 /* CreateDecksView.swift */; };
+		465B083E2710388D00725237 /* ImportTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465B083D2710388D00725237 /* ImportTextView.swift */; };
 		467738772702EBD400D80D73 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 467738752702EBD400D80D73 /* Model.xcdatamodeld */; };
 		467738792702F5BC00D80D73 /* Card+DeckExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467738782702F5BC00D80D73 /* Card+DeckExtension.swift */; };
 /* End PBXBuildFile section */
@@ -25,17 +25,17 @@
 /* Begin PBXFileReference section */
 		460280C126AFE244007ADE01 /* Flashcards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flashcards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		460280C426AFE244007ADE01 /* FlashcardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardsApp.swift; sourceTree = "<group>"; };
-		460280C626AFE244007ADE01 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		460280C626AFE244007ADE01 /* FlashCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsView.swift; sourceTree = "<group>"; };
 		460280C826AFE245007ADE01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		460280CB26AFE245007ADE01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		460280CD26AFE245007ADE01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		460280D526B21303007ADE01 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		460280D726B28D1A007ADE01 /* EditCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardsView.swift; sourceTree = "<group>"; };
-		46201CA826B7BDDD00A8C456 /* AddCardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardDeckView.swift; sourceTree = "<group>"; };
+		463313962723DD8800AB7239 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		46336E8F26B6310900B54CF5 /* CardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckView.swift; sourceTree = "<group>"; };
 		464EE3ED2722D84D0014B2D9 /* CreateDeckAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDeckAlert.swift; sourceTree = "<group>"; };
 		4651CD5F27060DCA00977426 /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		465B083D2710388D00725237 /* CreateDecksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDecksView.swift; sourceTree = "<group>"; };
+		465B083D2710388D00725237 /* ImportTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTextView.swift; sourceTree = "<group>"; };
 		467738762702EBD400D80D73 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		467738782702F5BC00D80D73 /* Card+DeckExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+DeckExtension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,15 +72,11 @@
 			children = (
 				460280C426AFE244007ADE01 /* FlashcardsApp.swift */,
 				4651CD5F27060DCA00977426 /* Persistence.swift */,
-				460280C626AFE244007ADE01 /* ContentView.swift */,
+				463313962723DD8800AB7239 /* MainView.swift */,
 				467738782702F5BC00D80D73 /* Card+DeckExtension.swift */,
-				460280D526B21303007ADE01 /* CardView.swift */,
-				46201CA826B7BDDD00A8C456 /* AddCardDeckView.swift */,
-				465B083D2710388D00725237 /* CreateDecksView.swift */,
-				46336E8F26B6310900B54CF5 /* CardDeckView.swift */,
-				464EE3ED2722D84D0014B2D9 /* CreateDeckAlert.swift */,
+				466502A8272517E60035F3D9 /* FlashCardsView */,
+				466502A92725184C0035F3D9 /* Select+EditCardDeckView */,
 				467738752702EBD400D80D73 /* Model.xcdatamodeld */,
-				460280D726B28D1A007ADE01 /* EditCardsView.swift */,
 				460280C826AFE245007ADE01 /* Assets.xcassets */,
 				460280CD26AFE245007ADE01 /* Info.plist */,
 				460280CA26AFE245007ADE01 /* Preview Content */,
@@ -94,6 +90,26 @@
 				460280CB26AFE245007ADE01 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		466502A8272517E60035F3D9 /* FlashCardsView */ = {
+			isa = PBXGroup;
+			children = (
+				460280C626AFE244007ADE01 /* FlashCardsView.swift */,
+				460280D526B21303007ADE01 /* CardView.swift */,
+			);
+			path = FlashCardsView;
+			sourceTree = "<group>";
+		};
+		466502A92725184C0035F3D9 /* Select+EditCardDeckView */ = {
+			isa = PBXGroup;
+			children = (
+				46336E8F26B6310900B54CF5 /* CardDeckView.swift */,
+				460280D726B28D1A007ADE01 /* EditCardsView.swift */,
+				465B083D2710388D00725237 /* ImportTextView.swift */,
+				464EE3ED2722D84D0014B2D9 /* CreateDeckAlert.swift */,
+			);
+			path = "Select+EditCardDeckView";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,16 +181,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				460280C726AFE244007ADE01 /* ContentView.swift in Sources */,
+				460280C726AFE244007ADE01 /* FlashCardsView.swift in Sources */,
+				463313972723DD8800AB7239 /* MainView.swift in Sources */,
 				460280D826B28D1A007ADE01 /* EditCardsView.swift in Sources */,
 				464EE3EE2722D84D0014B2D9 /* CreateDeckAlert.swift in Sources */,
 				467738772702EBD400D80D73 /* Model.xcdatamodeld in Sources */,
 				467738792702F5BC00D80D73 /* Card+DeckExtension.swift in Sources */,
 				460280D626B21303007ADE01 /* CardView.swift in Sources */,
-				46201CA926B7BDDD00A8C456 /* AddCardDeckView.swift in Sources */,
 				460280C526AFE244007ADE01 /* FlashcardsApp.swift in Sources */,
 				46336E9026B6310900B54CF5 /* CardDeckView.swift in Sources */,
-				465B083E2710388D00725237 /* CreateDecksView.swift in Sources */,
+				465B083E2710388D00725237 /* ImportTextView.swift in Sources */,
 				4651CD6027060DCA00977426 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
