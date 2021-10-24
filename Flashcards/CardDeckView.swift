@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CardDeckView: View {
-  @Environment(\.presentationMode) var presentationMode
   @State private var showingAddDeckView = false
   @State private var editActive = false
   @Binding var selectedCards: [Card]
@@ -24,7 +23,7 @@ struct CardDeckView: View {
           if !editActive {
             Button(action: {
               selectedCards = Array(decks[index].cards)
-              presentationMode.wrappedValue.dismiss()
+              showContentView = true
             }, label: {
               HStack {
                 Text(decks[index].name)
@@ -51,8 +50,7 @@ struct CardDeckView: View {
       .navigationBarItems(
         leading:
           Button(editActive ? "Done": "Edit") {
-//            editActive.toggle()
-            showContentView = true
+            editActive.toggle()
           },
         trailing:
           Button("Add New Deck") {
@@ -61,6 +59,7 @@ struct CardDeckView: View {
       )
     } //: NavigationView
     CreateDeckAlert(isShowingAlert: $showingAddDeckView)
+      .frame(width: 0, height: 0)
       .environment(\.managedObjectContext, self.viewContext)
   } //: Body
 
