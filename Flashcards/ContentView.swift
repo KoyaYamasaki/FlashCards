@@ -91,10 +91,6 @@ struct ContentView: View {
         }
       } //: differntiateWithoutColor
     } //: ZStack
-//    .sheet(isPresented: $showingEditScreen, onDismiss: resetCards) {
-//      CardDeckView(selectedCards: $cards)
-//        .environment(\.managedObjectContext, self.viewContext)
-//    }
     .onAppear(perform: resetCards)
   }
 
