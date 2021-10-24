@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  FlashCardsView.swift
 //  Flashcards
 //
 //  Created by 山崎宏哉 on 2021/07/27.
@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreHaptics
 
-struct ContentView: View {
+struct FlashCardsView: View {
   @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
   @Environment(\.accessibilityEnabled) var accessibilityEnabled
 
@@ -129,7 +129,7 @@ extension View {
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     let cards = Card(context: PersistenceController.preview.container.viewContext)
-    ContentView(cards: .constant([cards]), showContentView: .constant(true))
+    FlashCardsView(cards: .constant([cards]), showContentView: .constant(true))
       .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
       .previewLayout(.fixed(width: 1000, height: 500))
   }

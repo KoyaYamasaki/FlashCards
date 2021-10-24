@@ -1,5 +1,5 @@
 //
-//  CreateDecks.swift
+//  ImportTextView.swift
 //  Flashcards
 //
 //  Created by 山崎宏哉 on 2021/10/08.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CreateDecksView: View {
+struct ImportTextView: View {
   @ObservedObject var deck: Deck
 
   @State private var text = ""
@@ -129,7 +129,7 @@ struct CreateDecksView_Previews: PreviewProvider {
     ZStack {
       Color.black
         .edgesIgnoringSafeArea(.all)
-      CreateDecksView(deck: deck)
+      ImportTextView(deck: deck)
         .environment(\.colorScheme, .dark)
     }
     .previewLayout(.fixed(width: 644, height: 421))

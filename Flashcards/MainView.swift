@@ -14,7 +14,7 @@ struct MainView: View {
   @Environment(\.managedObjectContext) private var viewContext
   var body: some View {
     if showContentView {
-      ContentView(cards: $cards, showContentView: $showContentView)
+      FlashCardsView(cards: $cards, showContentView: $showContentView)
         .environment(\.managedObjectContext, viewContext)
     } else {
       CardDeckView(selectedCards: $cards, showContentView: $showContentView)

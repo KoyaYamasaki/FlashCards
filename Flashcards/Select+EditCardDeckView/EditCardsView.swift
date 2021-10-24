@@ -27,7 +27,7 @@ struct EditCardsView: View {
           Button("Add card", action: addCard)
         }
         Section() {
-          NavigationLink("Import Text", destination: CreateDecksView(deck: deck))
+          NavigationLink("Import Text", destination: ImportTextView(deck: deck))
         }
         Section(header: Text("Added")) {
           ForEach(deck.cards.sorted()) { card in
