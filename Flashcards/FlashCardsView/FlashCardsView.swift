@@ -31,7 +31,7 @@ struct FlashCardsView: View {
         .scaledToFill()
         .edgesIgnoringSafeArea(.all)
 
-      VStack {
+      VStack(alignment: .center) {
         HStack {
           Button(action: {
             self.showContentView = false
@@ -43,8 +43,10 @@ struct FlashCardsView: View {
           }
           .foregroundColor(.white)
           .font(.largeTitle)
-          .padding()
+          Spacer()
         }
+        .padding(10)
+
         Text(showCardRemainings)
           .font(.largeTitle)
           .foregroundColor(.white)
@@ -55,7 +57,7 @@ struct FlashCardsView: View {
               .fill(Color.black)
               .opacity(0.75)
           )
-        
+
         ZStack {
           ForEach(0..<cards.count, id: \.self) { index in
             CardView(card: self.cards[index]) { answerCorrect in
@@ -83,8 +85,9 @@ struct FlashCardsView: View {
             .foregroundColor(.black)
             .clipShape(Capsule())
         }
+        Spacer()
       } //: VStack
-      
+      .frame(width: 400, height: 600)
       if differentiateWithoutColor || accessibilityEnabled {
         AccessibilityView() {
           self.removeCard(at: self.cards.count - 1)
@@ -129,9 +132,15 @@ extension View {
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     let cards = Card(context: PersistenceController.preview.container.viewContext)
-    FlashCardsView(cards: .constant([cards]), showContentView: .constant(true))
-      .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-      .previewLayout(.fixed(width: 1000, height: 500))
+    if #available(iOS 15.0, *) {
+      FlashCardsView(cards: .constant([cards]), showContentView: .constant(true))
+        .previewDevice("iPhone 12")
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        .previewInterfaceOrientation(.portraitUpsideDown)
+    } else {
+      // Fallback on earlier versions
+    }
+    //      .previewLayout(.fixed(width: 1000, height: 500))
   }
 }
 

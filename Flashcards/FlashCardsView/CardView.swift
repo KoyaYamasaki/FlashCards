@@ -55,7 +55,7 @@ struct CardView: View {
       .padding(20)
       .multilineTextAlignment(.center)
     }
-    .frame(width: 450, height: 250)
+    .frame(width: 300, height: 350)
     .rotationEffect(.degrees(Double(offset.width / 5)))
     .offset(x: offset.width * 5, y: 0)
     .accessibility(addTraits: .isButton)
