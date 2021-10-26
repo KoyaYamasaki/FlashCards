@@ -84,7 +84,7 @@ struct ImportTextView: View {
     promptAndAnswers = text.components(separatedBy: "\n")
     for elem in promptAndAnswers {
       let singlePromptAndAnswer = elem.components(separatedBy: ":")
-      if singlePromptAndAnswer.count <= 2 {
+      if singlePromptAndAnswer.count >= 2 {
         prompt.append(singlePromptAndAnswer[0])
         answer.append(singlePromptAndAnswer[1])
       }
