@@ -77,7 +77,9 @@ struct FlashCardsView: View {
     } //: ZStack
     .onAppear(perform: resetCards)
     .onRotate { newOrientation in
-      orientation = newOrientation
+      if !newOrientation.isFlat {
+        orientation = newOrientation
+      }
     }
   }
 
