@@ -13,6 +13,7 @@
 		460280CC26AFE245007ADE01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 460280CB26AFE245007ADE01 /* Preview Assets.xcassets */; };
 		460280D626B21303007ADE01 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460280D526B21303007ADE01 /* CardView.swift */; };
 		460280D826B28D1A007ADE01 /* EditCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460280D726B28D1A007ADE01 /* EditCardsView.swift */; };
+		462EBD12272610E3004AB8A5 /* CustomViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462EBD11272610E3004AB8A5 /* CustomViewModifier.swift */; };
 		463313972723DD8800AB7239 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463313962723DD8800AB7239 /* MainView.swift */; };
 		46336E9026B6310900B54CF5 /* CardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46336E8F26B6310900B54CF5 /* CardDeckView.swift */; };
 		464EE3EE2722D84D0014B2D9 /* CreateDeckAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464EE3ED2722D84D0014B2D9 /* CreateDeckAlert.swift */; };
@@ -31,6 +32,7 @@
 		460280CD26AFE245007ADE01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		460280D526B21303007ADE01 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		460280D726B28D1A007ADE01 /* EditCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardsView.swift; sourceTree = "<group>"; };
+		462EBD11272610E3004AB8A5 /* CustomViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewModifier.swift; sourceTree = "<group>"; };
 		463313962723DD8800AB7239 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		46336E8F26B6310900B54CF5 /* CardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckView.swift; sourceTree = "<group>"; };
 		464EE3ED2722D84D0014B2D9 /* CreateDeckAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDeckAlert.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			children = (
 				460280C626AFE244007ADE01 /* FlashCardsView.swift */,
 				460280D526B21303007ADE01 /* CardView.swift */,
+				462EBD11272610E3004AB8A5 /* CustomViewModifier.swift */,
 			);
 			path = FlashCardsView;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				460280C526AFE244007ADE01 /* FlashcardsApp.swift in Sources */,
 				46336E9026B6310900B54CF5 /* CardDeckView.swift in Sources */,
 				465B083E2710388D00725237 /* ImportTextView.swift in Sources */,
+				462EBD12272610E3004AB8A5 /* CustomViewModifier.swift in Sources */,
 				4651CD6027060DCA00977426 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

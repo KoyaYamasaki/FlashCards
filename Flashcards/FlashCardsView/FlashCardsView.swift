@@ -11,7 +11,7 @@ import CoreHaptics
 struct FlashCardsView: View {
   @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
   @Environment(\.accessibilityEnabled) var accessibilityEnabled
-
+  
   @Binding var cards: [Card]
   @Binding var showContentView: Bool
   @State private var cardsForRestart: [Card] = []
@@ -19,48 +19,29 @@ struct FlashCardsView: View {
   @State private var isActive = true
   
   @State private var correctAnswerCount: Int = 0
-
+  @State private var orientation = UIDevice.current.orientation
+  
   @Environment(\.managedObjectContext) private var viewContext
-
+  
   let backgroundImage = "background\(Int.random(in: 1...10))"
-
+  
   var body: some View {
     ZStack {
       Image(decorative: backgroundImage)
         .resizable()
         .scaledToFill()
         .edgesIgnoringSafeArea(.all)
-
+      
       VStack(alignment: .center) {
-        HStack {
-          Button(action: {
-            self.showContentView = false
-          }) {
-            Image(systemName: "pencil.circle")
-              .padding()
-              .background(Color.black.opacity(0.7))
-              .clipShape(Circle())
-          }
-          .foregroundColor(.white)
-          .font(.largeTitle)
-          Spacer()
+        if !orientation.isLandscape {
+          PortraitSetup(showContentView: $showContentView, showCardRemainings: showCardRemainings)
+        } else {
+          LandScapeSetup(showContentView: $showContentView, showCardRemainings: showCardRemainings)
         }
-        .padding(10)
-
-        Text(showCardRemainings)
-          .font(.largeTitle)
-          .foregroundColor(.white)
-          .padding(.horizontal, 20)
-          .padding(.vertical, 5)
-          .background(
-            Capsule()
-              .fill(Color.black)
-              .opacity(0.75)
-          )
 
         ZStack {
           ForEach(0..<cards.count, id: \.self) { index in
-            CardView(card: self.cards[index]) { answerCorrect in
+            CardView(orientation: $orientation, card: self.cards[index]) { answerCorrect in
               if answerCorrect {
                 correctAnswerCount += 1
               }
@@ -87,7 +68,7 @@ struct FlashCardsView: View {
         }
         Spacer()
       } //: VStack
-      .frame(width: 400, height: 600)
+      .frame(width: flexibleFrame.width, height: flexibleFrame.height)
       if differentiateWithoutColor || accessibilityEnabled {
         AccessibilityView() {
           self.removeCard(at: self.cards.count - 1)
@@ -95,6 +76,17 @@ struct FlashCardsView: View {
       } //: differntiateWithoutColor
     } //: ZStack
     .onAppear(perform: resetCards)
+    .onRotate { newOrientation in
+      orientation = newOrientation
+    }
+  }
+
+  var flexibleFrame: (width: Double, height: Double) {
+    if !orientation.isLandscape {
+      return (width: 400.0, height: 600.0)
+    } else {
+      return (width: 600.0, height: 350.0)
+    }
   }
 
   var showCardRemainings: String {
@@ -136,11 +128,83 @@ struct ContentView_Previews: PreviewProvider {
       FlashCardsView(cards: .constant([cards]), showContentView: .constant(true))
         .previewDevice("iPhone 12")
         .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-        .previewInterfaceOrientation(.portraitUpsideDown)
+        .previewInterfaceOrientation(.landscapeRight)
     } else {
       // Fallback on earlier versions
     }
     //      .previewLayout(.fixed(width: 1000, height: 500))
+  }
+}
+
+struct PortraitSetup: View {
+
+  @Binding var showContentView: Bool
+  let showCardRemainings: String
+
+  var body: some View {
+    Group {
+      HStack {
+        Button(action: {
+          self.showContentView = false
+        }) {
+          Image(systemName: "pencil.circle")
+            .padding()
+            .background(Color.black.opacity(0.7))
+            .clipShape(Circle())
+        }
+        .foregroundColor(.white)
+        .font(.largeTitle)
+        Spacer()
+      }
+      .padding(.leading, 20)
+      
+      Text(showCardRemainings)
+        .font(.largeTitle)
+        .foregroundColor(.white)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 5)
+        .background(
+          Capsule()
+            .fill(Color.black)
+            .opacity(0.75)
+        )
+    }
+  }
+}
+
+struct LandScapeSetup: View {
+
+  @Binding var showContentView: Bool
+  let showCardRemainings: String
+
+  var body: some View {
+    HStack {
+      Button(action: {
+        self.showContentView = false
+      }) {
+        Image(systemName: "pencil.circle")
+          .padding()
+          .background(Color.black.opacity(0.7))
+          .clipShape(Circle())
+      }
+      .foregroundColor(.white)
+      .font(.largeTitle)
+      Spacer()
+
+      Text(showCardRemainings)
+        .font(.largeTitle)
+        .foregroundColor(.white)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 5)
+        .background(
+          Capsule()
+            .fill(Color.black)
+            .opacity(0.75)
+        )
+        .offset(x: -30.0, y: 0.0)
+      Spacer()
+    }
+    .padding(.top, 20)
   }
 }
 
